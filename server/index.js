@@ -15,8 +15,8 @@ mongoose
       console.log("connected to db listen on port 3000");
     });
   })
-  .catch(() => {
-    console.log("error connecteing to db");
+  .catch((error) => {
+    console.log(error);
   });
 app.use("/api/user", UserRouter);
 app.use("/api/auth", AuthRouter);
