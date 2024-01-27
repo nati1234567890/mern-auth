@@ -11,6 +11,7 @@ const SignIn = () => {
   // const [error, setError] = useState(false);
   // const [loading, setLoading] = useState(false);
   const dispach = useDispatch();
+  const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.user);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -18,8 +19,6 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // setLoading(true);
-      // setError(false);
       dispach(signInStart());
       const res = await fetch("http://localhost:3000/api/auth/signin", {
         method: "POST",
@@ -29,17 +28,15 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json(res);
-      // setLoading(false);
       dispach(signInSuccess(data));
       if (data.success === false) {
-        // setError(true);
         dispach(signInFail(data));
+        console.log("not");
       }
-      const navigate = useNavigate();
+      console.log("work");
+
       navigate("/");
     } catch (error) {
-      // setLoading(false);
-      // setError(true);
       dispach(signInFail(error));
     }
   };
@@ -75,9 +72,7 @@ const SignIn = () => {
           <span className="text-blue-500 ml-2">Sign Up</span>
         </Link>
       </div>
-      <p className="text-red-700 mt-3">
-        {error && "Something went Wrong" }
-      </p>
+      <p className="text-red-700 mt-3">{error && "Something went Wrong"}</p>
     </div>
   );
 };
