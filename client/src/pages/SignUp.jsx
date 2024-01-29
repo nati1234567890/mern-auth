@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -22,6 +23,7 @@ const SignUp = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json(res);
+      console.log(data);
       setLoading(false);
       if (data.success === false) {
         setError(true);
@@ -63,6 +65,7 @@ const SignUp = () => {
         >
           {loading ? "Loading..." : "Sign-un"}
         </button>
+        <OAuth />
       </form>
       <div className="flex mt-5">
         <p>Have an account ?</p>

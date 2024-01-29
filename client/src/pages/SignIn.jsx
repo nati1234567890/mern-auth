@@ -6,6 +6,7 @@ import {
   signInSuccess,
 } from "../redux/user/UserSlice";
 import { useDispatch, useSelector } from "react-redux";
+import OAuth from "../components/OAuth";
 const SignIn = () => {
   const [formData, setFormData] = useState({});
   // const [error, setError] = useState(false);
@@ -28,12 +29,11 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json(res);
+      console.log(data);
       dispach(signInSuccess(data));
       if (data.success === false) {
         dispach(signInFail(data));
-        console.log("not");
       }
-      console.log("work");
 
       navigate("/");
     } catch (error) {
@@ -65,6 +65,7 @@ const SignIn = () => {
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
+        <OAuth />
       </form>
       <div className="flex mt-5">
         <p>Dont Have an account ?</p>
